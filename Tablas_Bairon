@@ -1,0 +1,48 @@
+create table cliente(
+    id int4 not null,
+    Nombre varchar(100) not null unique,
+    Apellido varchar(100) not null unique,
+    Direccion varchar(100) not null unique ,
+    Telefono int4 not null unique ,
+    Email varchar(100) not null unique ,
+    Usuario varchar(100) not null unique ,
+    Contraseña varchar(100) not null unique ,
+
+    constraint pk_cliente primary key (id)
+
+);
+
+create table empresa(
+    id int4 not null,
+    nom_empresa varchar(100) not null,
+    direccion varchar(100) not null,
+    telefono int4 not null,
+    email varchar(100) not null,
+
+    constraint pk_empresa primary key (id)
+
+);
+
+create table productos(
+    id int4 not null,
+    id_categoria int4 not null,
+    id_tamaño int4 not null,
+    nom_producto varchar(100) not null,
+    marca varchar(100) not null unique,
+    modelo varchar(100) not null unique,
+    precio int4 not null unique,
+
+    constraint pk_productos primary key (id,id_tamaño,id_categoria),
+    constraint fk_categ_productos foreign key (id_categoria) references categoria(id),
+    constraint fk_catal_productos foreign key (nom_producto) references catalogo(nom_producto),
+    constraint fk_tamaño_productos foreign key (id_tamaño) references tamaño(id)
+);
+
+create table catalogo(
+    id int4 not null,
+    nom_producto varchar(100) not null unique,
+    id_producto int4 not null ,
+    imagen varchar(500) not null unique,
+
+    constraint pk_catalogo primary key (id_producto, id)
+    );
