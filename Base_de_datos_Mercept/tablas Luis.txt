@@ -1,0 +1,27 @@
+create table tamaño(
+    id int4 not null,
+    tamaño varchar(50) not null,
+
+    constraint pk_tamaño primary key (id)
+);
+
+create table categoria(
+    id int4 not null,
+    nom_categoria varchar(100) not null,
+    descripcion varchar(400) not null,
+
+    constraint pk_categoria primary key (id)
+
+);
+
+create table inventario(
+    id_productos int4 not null,
+    id_cliente int4 not null,
+    existencia varchar(20) not null,
+
+    constraint pk_inventario primary key (id_productos,id_cliente),
+    constraint fk_prod_inven foreign key (id_productos) references productos(id),
+    constraint fk_client_invent foreign key (id_cliente) references cliente(id)
+);
+
+
