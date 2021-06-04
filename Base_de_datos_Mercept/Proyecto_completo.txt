@@ -1,19 +1,16 @@
-create schema proyecto;
-
 create table cliente(
     id int4 not null,
-    Nombre varchar(100) not null unique,
-    Apellido varchar(100) not null unique,
-    Direccion varchar(100) not null unique ,
+    Nombre varchar(100) not null unique ,
+    Apellido varchar(100) not null ,
+    Direccion varchar(100) not null  ,
     Telefono int4 not null unique ,
-    Email varchar(100) not null unique ,
+    Email varchar(100) not null  ,
     Usuario varchar(100) not null unique ,
     Contraseña varchar(100) not null unique ,
 
     constraint pk_cliente primary key (id)
 
 );
-
 create table empresa(
     id int4 not null,
     nom_empresa varchar(100) not null,
@@ -24,30 +21,6 @@ create table empresa(
     constraint pk_empresa primary key (id)
 
 );
-
-create table productos(
-    id int4 not null,
-    id_categoria int4 not null,
-    id_tamaño int4 not null,
-    nom_producto varchar(100) not null,
-    marca varchar(100) not null unique,
-    modelo varchar(100) not null unique,
-    precio int4 not null unique,
-
-    constraint pk_productos primary key (id,id_tamaño,id_categoria),
-    constraint fk_categ_productos foreign key (id_categoria) references categoria(id),
-    constraint fk_catal_productos foreign key (nom_producto) references catalogo(nom_producto),
-    constraint fk_tamaño_productos foreign key (id_tamaño) references tamaño(id)
-);
-
-create table catalogo(
-    id int4 not null,
-    nom_producto varchar(100) not null unique,
-    id_producto int4 not null ,
-    imagen varchar(500) not null unique,
-
-    constraint pk_catalogo primary key (id_producto, id)
-    );
 
 create table tamaño(
     id int4 not null,
@@ -62,8 +35,36 @@ create table categoria(
     descripcion varchar(400) not null,
 
     constraint pk_categoria primary key (id)
-
 );
+
+create table productos(
+    id int4 not null unique,
+    id_categoria int4 not null unique,
+    id_tamaño int4 not null unique ,
+    id_empresa int4 not null,
+    nom_producto varchar(100) not null unique,
+    marca varchar(100) not null ,
+    modelo varchar(100) not null ,
+    precio int4 not null unique,
+
+    constraint pk_productos primary key (id,id_categoria,id_tamaño,id_empresa),
+    constraint fk_categ_produ foreign key (id_categoria) references categoria(id),
+    constraint "fk_tamaño_produ" foreign key (id_tamaño) references tamaño(id),
+    constraint fk_empre_produ foreign key (id_empresa) references empresa(id)
+);
+
+create table catalogo(
+    id int4 not null unique,
+    nom_producto varchar(100) not null unique,
+    id_producto int4 not null unique,
+    imagen varchar(500) not null ,
+
+    constraint pk_catalogo primary key (id,id_producto),
+    constraint fk_cata_produc foreign key (id_producto) references productos(id),
+    constraint fk_cat_product foreign key (nom_producto) references productos (nom_producto)
+
+    );
+
 
 create table inventario(
     id_productos int4 not null,
@@ -82,8 +83,7 @@ create table detalle_pedido(
 
     constraint pk_detalle_pedido primary key (id,id_cliente),
     constraint fk_clien_detped foreign key (id_cliente) references cliente(id)
-)
-;
+);
 
 create table factura(
     num_factura int4 not null,
@@ -111,8 +111,9 @@ create table carrito_compras(
     nom_producto varchar(100) not null,
     descuento varchar(100) not null,
 
-    constraint pk_produc_carcom primary key (id_producto,nom_producto),
-    constraint fk_produc_carcom foreign key (id_producto,nom_producto) references productos(id, nom_producto)
+    constraint pk_produc_carcom primary key (id_producto),
+    constraint fk_produc_carcom foreign key (id_producto) references productos(id),
+    constraint fk_catal_carcom foreign key (nom_producto) references catalogo (nom_producto)
 );
 
 create table historial_compras(
