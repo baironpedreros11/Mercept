@@ -11,7 +11,6 @@ create table cliente(
     constraint pk_cliente primary key (id)
 
 );
-
 create table empresa(
     id int4 not null,
     nom_empresa varchar(100) not null,
@@ -23,26 +22,31 @@ create table empresa(
 
 );
 
+create table catalogo(
+    id int4 not null unique,
+    nom_producto varchar(100) not null unique,
+    id_producto int4 not null unique,
+    imagen varchar(500) not null ,
+
+    constraint pk_catalogo primary key (id,id_producto),
+    constraint fk_cata_pro foreign key (id_producto) references productos(id),
+    constraint fk_cata_produc foreign key (nom_producto) references productos(nom_producto)
+
+    );
+
+
 create table productos(
-    id int4 not null,
+    id int4 not null unique,
     id_categoria int4 not null,
     id_tamaño int4 not null,
-    nom_producto varchar(100) not null,
-    marca varchar(100) not null unique,
-    modelo varchar(100) not null unique,
-    precio int4 not null unique,
-
-    constraint pk_productos primary key (id,id_tamaño,id_categoria),
-    constraint fk_categ_productos foreign key (id_categoria) references categoria(id),
-    constraint fk_catal_productos foreign key (nom_producto) references catalogo(nom_producto),
-    constraint fk_tamaño_productos foreign key (id_tamaño) references tamaño(id)
-);
-
-create table catalogo(
-    id int4 not null,
+    id_empresa int4 not null,
     nom_producto varchar(100) not null unique,
-    id_producto int4 not null ,
-    imagen varchar(500) not null unique,
+    marca varchar(100) not null ,
+    modelo varchar(100) not null ,
+    precio int4 not null ,
 
-    constraint pk_catalogo primary key (id_producto, id)
-    );
+    constraint pk_productos primary key (id,id_categoria,id_tamaño,id_empresa),
+    constraint fk_categ_produ foreign key (id_categoria) references categoria(id),
+    constraint fk_tamaño_produ foreign key (id_tamaño) references tamaño(id),
+    constraint fk_empre_produ foreign key (id_empresa) references empresa(id)
+);
