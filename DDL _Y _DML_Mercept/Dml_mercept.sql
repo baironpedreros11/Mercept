@@ -282,5 +282,6 @@ insert into historial_ventas
 values ('15-1-21','5','2','2');
 select * from historial_ventas;
 
+/*Esta es la base de datos con los dml*/
 
 
