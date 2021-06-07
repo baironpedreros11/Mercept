@@ -3,9 +3,8 @@ create table carrito_compras(
     nom_producto varchar(100) not null,
     descuento varchar(100) not null,
 
-    constraint pk_produc_carcom primary key (id_producto),
-    constraint fk_produc_carcom foreign key (id_producto) references productos(id),
-    constraint fk_catal_carcom foreign key (nom_producto) references catalogo (nom_producto)
+    constraint pk_produc_carcom primary key (id_producto,nom_producto),
+    constraint fk_produc_carcom foreign key (id_producto,nom_producto) references productos(id, nom_producto)
 );
 
 create table historial_compras(
