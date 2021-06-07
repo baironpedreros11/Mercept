@@ -302,29 +302,34 @@ on detalle_pedido.id_cliente = cliente.id;
 
 select * from factura
 inner join cliente
-on factura.nombre_cliente = cliente.Nombre;
+on factura.nombre_cliente = cliente.Nombre
+where Direccion='Cll-30-j-30';
 
 select * from historial_compras
 inner join productos
-on historial_compras.id_producto = productos.id;
+on historial_compras.id_producto = productos.id
+where precio = '70000';
 
 select * from catalogo
 inner join productos
-on catalogo.id_producto = productos.id;
+on catalogo.id_producto = productos.id
+where id_empresa = '2' and productos.nom_producto = 'Repisa';
 
 select * from carrito_compras
 inner join productos
-on carrito_compras.id_producto = productos.id;
+on carrito_compras.id_producto = productos.id
+where descuento = '10%';
 
 select * from venta
 join productos
 on venta.id_producto = productos.id
 join cliente
-on venta.id_cliente = cliente.id;
+on venta.id_cliente = cliente.id
+where Nombre= 'Kevin';
 
 select * from inventario
 join productos
 on inventario.id_productos = productos.id
 join cliente
-on inventario.id_cliente = cliente.id;
-
+on inventario.id_cliente = cliente.id
+where cliente.id = '3' and precio = '140000';
