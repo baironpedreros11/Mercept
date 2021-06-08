@@ -283,5 +283,5 @@ values ('15-1-21','5','2','2');
 select * from historial_ventas;
 
 
-
+/*Dml Mercept*/
 
