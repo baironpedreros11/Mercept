@@ -1,3 +1,6 @@
+/*Tablas Julian*/
+create schema Mercept;
+
 Create table cliente(
 
     id int4 not null ,
@@ -27,7 +30,7 @@ create table empresa(
     CONSTRAINT uk_emp UNIQUE (nom_empresa)
 
 );
-
+/*Tablas Bayron*/
 create table tamaño(
     id int4 not null,
     tamaño varchar(50) not null,
@@ -64,9 +67,7 @@ create table productos(
     constraint fk_empre_produ foreign key (id_empresa) references empresa(id)
 );
 
-
-
-
+/*Tablas Andryu*/
 create table catalogo(
     id int4 not null,
     nom_producto varchar(100) not null unique ,
@@ -103,7 +104,7 @@ create table detalle_pedido(
     CONSTRAINT uk_detal UNIQUE (id_cliente),
     constraint fk_clien_detped foreign key (id_cliente) references cliente(id)
 );
-
+/*Tablas Luis*/
 create table factura(
     id int4 not null,
     num_factura int4 not null,
@@ -137,7 +138,7 @@ create table carrito_compras(
     constraint fk_produc_carcom foreign key (id_producto) references productos(id),
     constraint fk_catal_carcom foreign key (nomb_producto) references catalogo (nom_producto)
 );
-
+/*Tablas Jorge*/
 create table historial_compras(
     id int4 not null,
     fecha_compra date not null,
@@ -163,6 +164,7 @@ create table historial_ventas(
 );
 
 /*DML Y DDL*/
+/*Ingreso de datos Andryu*/
 /*DATOS CLIENTE*/
 insert into cliente
 values (1,'miguel','santodomingo','Cll-71-M-49','311547861','santodomingomi45@mercept.co','Miguel_Santodomingo',md5('miguel123'));
@@ -332,7 +334,7 @@ values ('5','15-1-21','5','2','2');
 select * from historial_ventas;
 
 /*JOINS*/
-
+/*Joins hecho por Bayron*/
 
 select * from productos
 inner join empresa
